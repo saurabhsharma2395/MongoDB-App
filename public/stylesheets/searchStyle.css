@@ -1,0 +1,80 @@
+/******************************************************************************
+***
+*	ITE5315 – Assignment 4
+*	I declare that this assignment is my own work in accordance with Humber Academic Policy.
+*	No part of this assignment has been copied manually or electronically from any other source
+*	(including web sites) or distributed to other students.
+*
+*	Name: Saurabh Sharma 	Student ID: N01543808	Date: November 25, 2023 	
+*
+*
+******************************************************************************
+**/
+
+/*Define color scheme*/
+:root {
+  --bg_main: #0a1f44;
+  --text_light: #fff;
+  --text_med: #53627c;
+  --text_dark: #1e2432;
+  --red: #ff1e42;
+  --darkred: #c3112d;
+  --orange: #ff8c00;
+}
+
+/*change pointer icon over button*/
+button {
+  cursor: pointer;
+}
+
+button,
+input {
+  border: none;
+  background: none;
+  outline: none;
+  color: inherit;
+}
+
+/*Heading section*/
+.search-field {
+  color: var(--text_dark);
+}
+
+.search-field form {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-field form input {
+  font-size: 2rem;
+  height: 40px;
+  padding: 5px 5px 10px;
+  border-bottom: 1px solid;
+}
+
+.search-field form input::placeholder {
+  color: currentColor;
+}
+
+.search-field form button {
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  padding: 15px 20px;
+  margin-left: 15px;
+  border-radius: 5px;
+  background: var(--red);
+}
+
+.search-field form button:hover {
+  background: var(--orange);
+}
+
+.search-field form .msg {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  max-width: 450px;
+  min-height: 40px;
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+<body>
+    <main>
+        {{#if body}}
+            <div id="message">
+                {{{body}}}
+            </div>
+        {{else}}
+            {{#if books_handle}}
+                <div id="headmessage">
+                    <h3>{{{heading}}}</h3>
+                </div>
+                <table id="booksTable">
+                    <tr>
+                        <th>ISBN</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Inventory</th>
+                        <th>Category</th>
+                        <th>Image</th>
+                    </tr>
+                    {{#each books_handle}}
+                        <tr>
+                            <td>{{ISBN}}</td>
+                            <td>{{title}}</td>
+                            <td>{{author}}</td>
+                            <td>{{inventory}}</td>
+                            <td>{{category}}</td>
+                            <td>
+                                <img src="{{img}}" alt="Product Image" style="max-width: 100px;" />
+                            </td>
+                        </tr>
+                    {{/each}}
+                </table>
+                <!-- Marker for infinite scrolling -->
+                <div id="end-marker" style="display: none;"></div>
+            {{/if}}
+        {{/if}}
+    </main>
+</body>
+</html>

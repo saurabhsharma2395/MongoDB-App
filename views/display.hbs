@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+</head>
+<body>
+    <main>
+        {{#if body}}
+            <div id="message">
+                {{{body}}}
+            </div>
+        {{else}}
+            {{#if books_handle}}
+                <div id="headmessage">
+                    <h3>{{{heading}}}</h3>
+                </div>
+                <table id="booksTable">
+                    <tr>
+                        <th>ISBN</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Inventory</th>
+                        <th>Category</th>
+                        <th>Image</th>
+                    </tr>
+                    {{#each books_handle}}
+                        <tr>
+                            <td>{{ISBN}}</td>
+                            <td>{{title}}</td>
+                            <td>{{author}}</td>
+                            <td>{{inventory}}</td>
+                            <td>{{category}}</td>
+                            <td>
+                                <img src="{{img}}" alt="Product Image" style="max-width: 100px;" />
+                            </td>
+                        </tr>
+                    {{/each}}
+                </table>
+                <!-- Marker for infinite scrolling -->
+                <div id="end-marker" style="display: none;"></div>
+            {{/if}}
+        {{/if}}
+    </main>
+
+<!-- AJAX Request -->
+<script>
+    var page = 2; // Start from the second page
+
+    $(window).scroll(function () {
+        var distanceFromBottom = $(document).height() - $(window).height() - $(window).scrollTop();
+        var threshold = 100;
+
+        if (distanceFromBottom < threshold) {
+            console.log('Scrolled near the bottom');
+            $.ajax({
+                url: '/books/all?page=' + page,
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data.books_handle); // Log the received data
+                    if (data.books_handle.length > 0) {
+                        data.books_handle.forEach(function(book) {
+                            var row = '<tr>' +
+                                '<td>' + book.ISBN + '</td>' +
+                                '<td>' + book.title + '</td>' +
+                                '<td>' + book.author + '</td>' +
+                                '<td>' + book.inventory + '</td>' +
+                                '<td>' + book.category + '</td>' +
+                                '<td><img src="' + book.img + '" alt="Product Image" style="max-width: 100px;" /></td>' +
+                                '</tr>';
+                            $('#booksTable').append(row);
+                        });
+                        page++;
+                    } else {
+                        $('#end-marker').hide();
+                    }
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

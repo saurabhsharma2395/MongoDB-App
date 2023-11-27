@@ -1,0 +1,59 @@
+<link rel="stylesheet" href="/stylesheets/formStyle.css" />
+<h1>Add Book</h1>
+
+<form method="POST" action="/books{{action_type}}">
+        
+<div id="form-group">
+    <label>ISBN:</label>
+    <input class="form-control" name="ISBN" type="text" value="{{formData.ISBN}}">
+    {{#if errors.ISBN}}
+        <p>Error: {{errors.ISBN}}</p>
+    {{/if}}
+</div>
+
+
+<div id="form-group">
+    <label>Title:</label>
+    <input class="form-control" name="title" type="text" value="{{formData.title}}">
+    {{#if errors.title}}
+        <p>Error: {{errors.title}}</p>
+    {{/if}}
+</div>
+
+
+<div id="form-group">
+    <label>Author:</label>
+    <input class="form-control" name="author" type="text" value="{{formData.author}}">
+    {{#if errors.author}}
+        <p>Error: {{errors.author}}</p>
+    {{/if}}
+</div>
+
+
+<div id="form-group">
+    <label>Inventory:</label>
+    <input class="form-control" name="inventory" type="number" value="{{formData.inventory}}">
+    {{#if errors.inventory}}
+        <p>Error: {{errors.inventory}}</p>
+    {{/if}}
+</div>
+
+
+<div id="form-group">
+    <label>Category:</label>
+    <input class="form-control" name="category" type="text" value="{{formData.category}}">
+    {{#if errors.category}}
+        <p>Error: {{errors.category}}</p>
+    {{/if}}
+</div>
+
+<div id="form-group">
+    <label>Image Link:</label>
+    <input class="form-control" name="img" type="text" value="{{formData.img}}">
+    {{#if errors.category}}
+        <p>Error: {{errors.category}}</p>
+    {{/if}}
+</div>
+
+<input class="btn btn-primary" type="submit" value="Submit" />
+</form>

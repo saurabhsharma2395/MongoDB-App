@@ -1,0 +1,34 @@
+<!--******************************************************************************
+***
+*	ITE5315 – Assignment 4
+*	I declare that this assignment is my own work in accordance with Humber Academic Policy.
+*	No part of this assignment has been copied manually or electronically from any other source
+*	(including web sites) or distributed to other students.
+*
+*	Name: Saurabh Sharma 	Student ID: N01543808	Date: November 25, 2023 	
+*
+*
+******************************************************************************
+**-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/stylesheets/searchStyle.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Raleway"
+    />
+    <title>Search</title>
+  </head>
+  <body>
+    <section class="search-field">
+        <div class="container">
+        <h1>Search</h1>
+        <form action="/books{{route}}" method="POST">
+          <input type="text" id="var_InputText" name="var_InputText" required placeholder="Search by {{parameter}}" autofocus >
+          <button type="submit">SUBMIT</button>
+        </form>
+        </div>
+    </section>
+  </body>
+</html>
