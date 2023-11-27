@@ -51,11 +51,7 @@
     var page = 2; // Start from the second page
 
     $(window).scroll(function () {
-        var distanceFromBottom = $(document).height() - $(window).height() - $(window).scrollTop();
-        var threshold = 100;
 
-        if (distanceFromBottom < threshold) {
-            console.log('Scrolled near the bottom');
             $.ajax({
                 url: '/books/all?page=' + page,
                 type: 'get',
@@ -83,7 +79,6 @@
                     console.log('Error:', data);
                 }
             });
-        }
     });
 </script>
 
