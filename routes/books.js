@@ -167,7 +167,7 @@ router.get("/insert", (req, res) => {
 const bookValidationRules = [
   check("ISBN")
     .isLength({ min: 6, max: 13 })
-    .withMessage("ISBN must be between 10 and 13 characters long."),
+    .withMessage("ISBN must be between 6 and 13 characters long."),
   check("title").not().isEmpty().withMessage("Title is required."),
   check("author").not().isEmpty().withMessage("Author is required."),
   check("inventory")
