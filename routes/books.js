@@ -188,6 +188,7 @@ router.post("/insert/new", bookValidationRules, async (req, res) => {
     return res.status(400).render("insert_book", {
       errors: formattedErrors,
       formData: req.body,
+      action_type: "/insert/new",
     });
   }
 
