@@ -159,7 +159,9 @@ router.get("/search/:ISBN", async (req, res) => {
 });
 
 router.get("/insert", (req, res) => {
-  res.render("insert_book", { action_type: "/insert" });
+  res.render("insert_book", { 
+    action_type: "/insert",
+  });
 });
 
 const bookValidationRules = [
