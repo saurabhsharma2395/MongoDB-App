@@ -160,7 +160,7 @@ router.get("/search/:ISBN", async (req, res) => {
 
 router.get("/insert", (req, res) => {
   res.render("insert_book", { 
-    action_type: "/insert",
+    action_type: "/insert/new",
   });
 });
 
@@ -177,7 +177,7 @@ const bookValidationRules = [
   check("img").not().isEmpty().withMessage("Image Link is required."),
 ];
 
-router.post("/insert", bookValidationRules, async (req, res) => {
+router.post("/insert/new", bookValidationRules, async (req, res) => {
   const errors_list = validationResult(req);
   if (!errors_list.isEmpty()) {
     const formattedErrors = {};
