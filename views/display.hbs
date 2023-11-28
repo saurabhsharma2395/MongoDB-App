@@ -49,43 +49,54 @@
 <!-- AJAX Request -->
 <script>
     var page = 2; // Start from the second page
+    var isFetching = false; // Flag to indicate if AJAX request is in progress
 
     $(window).scroll(function () {
+        if (isFetching) return; // Prevent multiple simultaneous requests
+
         var distanceFromBottom = $(document).height() - $(window).height() - $(window).scrollTop();
-        var threshold = 100;
+        var threshold = 100; // Adjust threshold as needed
 
         if (distanceFromBottom < threshold) {
             console.log('Scrolled near the bottom');
-            $.ajax({
-                url: '/books/all?page=' + page,
-                type: 'get',
-                dataType: 'json',
-                success: function (data) {
-                    console.log(data.books_handle); // Log the received data
-                    if (data.books_handle.length > 0) {
-                        data.books_handle.forEach(function(book) {
-                            var row = '<tr>' +
-                                '<td>' + book.ISBN + '</td>' +
-                                '<td>' + book.title + '</td>' +
-                                '<td>' + book.author + '</td>' +
-                                '<td>' + book.inventory + '</td>' +
-                                '<td>' + book.category + '</td>' +
-                                '<td><img src="' + book.img + '" alt="Product Image" style="max-width: 100px;" /></td>' +
-                                '</tr>';
-                            $('#booksTable').append(row);
-                        });
-                        page++;
-                    } else {
-                        $('#end-marker').hide();
-                    }
-                },
-                error: function (data) {
-                    console.log('Error:', data);
-                }
-            });
+            isFetching = true; // Set the flag
+            fetchBooks();
         }
     });
+
+    function fetchBooks() {
+        $.ajax({
+            url: '/books/all?page=' + page,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data.books_handle); // Log the received data
+                if (data.books_handle.length > 0) {
+                    data.books_handle.forEach(function(book) {
+                        var row = '<tr>' +
+                            '<td>' + book.ISBN + '</td>' +
+                            '<td>' + book.title + '</td>' +
+                            '<td>' + book.author + '</td>' +
+                            '<td>' + book.inventory + '</td>' +
+                            '<td>' + book.category + '</td>' +
+                            '<td><img src="' + book.img + '" alt="Product Image" style="max-width: 100px;" /></td>' +
+                            '</tr>';
+                        $('#booksTable').append(row);
+                    });
+                    page++; // Increment the page number
+                } else {
+                    $('#end-marker').hide(); // Hide the marker if no more data
+                }
+                isFetching = false; // Reset the flag
+            },
+            error: function (data) {
+                console.log('Error:', data);
+                isFetching = false; // Reset the flag in case of error
+            }
+        });
+    }
 </script>
+
 
 </body>
 </html>

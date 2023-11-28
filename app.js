@@ -17,7 +17,11 @@ const HBS = exphbs.create({
   helpers: {
     isArray: function (value) {
     return Array.isArray(value);
-  }},
+  },
+  json: function(context){
+    return JSON.stringify(context);
+  }
+},
   defaultLayout: "main",
   extname: ".hbs",
   runtimeOptions: {

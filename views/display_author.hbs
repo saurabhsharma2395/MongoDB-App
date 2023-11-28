@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <main>
+        {{#if body}}
+            <div id="message">
+                {{{body}}}
+            </div>
+        {{else}}
+            <div id="headmessage">
+                <h3>Books by Author</h3>
+            </div>
+            <table id="booksTable">
+                <tr>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Inventory</th>
+                    <th>Category</th>
+                    <th>Image</th>
+                </tr>
+                <!-- The initial set of books will be inserted here by JavaScript -->
+            </table>
+        {{/if}}
+    </main>
+
+    <script>
+        var books = {{{json bookData}}}; // All books data
+        var perPage = 20; // Number of records per page
+        var displayed = 0; // Number of records currently displayed
+
+        // Function to display books
+        function displayBooks() {
+            var end = displayed + perPage;
+            for (var i = displayed; i < end && i < books.length; i++) {
+                var book = books[i];
+                var row = '<tr>' +
+                    '<td>' + book.ISBN + '</td>' +
+                    '<td>' + book.title + '</td>' +
+                    '<td>' + book.author + '</td>' +
+                    '<td>' + book.inventory + '</td>' +
+                    '<td>' + book.category + '</td>' +
+                    '<td><img src="' + book.img + '" alt="Product Image" style="max-width: 100px;" /></td>' +
+                    '</tr>';
+                $('#booksTable').append(row);
+            }
+            displayed = end; // Update the number of displayed books
+        }
+
+        // Initially display the first set of books
+        displayBooks();
+
+        // Scroll event for loading more books
+        $(window).scroll(function () {
+            var distanceFromBottom = $(document).height() - $(window).height() - $(window).scrollTop();
+            var threshold = 100; // Distance from bottom to trigger the next load
+
+            if (distanceFromBottom < threshold && displayed < books.length) {
+                displayBooks();
+            }
+        });
+    </script>
+
+</body>
+</html>
+ 
